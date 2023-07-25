@@ -27,18 +27,37 @@ function getWeatherData(apiUrl, cityName = "Riga") {
         const latestWeatherConditions = data.daily.weathercode.slice(-1)[0];
         const minTemperature = data.daily.temperature_2m_min[0];
         const maxTemperature = data.daily.temperature_2m_max[0];
+        console.log(latestWeatherData)
+
+        function setFace(latestWeatherData) {
+          var tempHot = "🥵";
+          var tempGood = "😋";
+          var tempBad = "🥶"
+
+          if (latestWeatherData >= 21) {
+            latestTemp = "🌡️ "+latestWeatherData +"°C "+ tempHot;
+          } else if (latestWeatherData <= 20) {
+            latestTemp = "🌡️ "+latestWeatherData + "°C "+ tempGood ;
+          } else if (latestWeatherData < 15) {
+            latestTemp = "🌡️ "+latestWeatherData+"°C "+ tempBad;
+          }
+          return latestTemp;
+        }
 
         // Update the HTML elements with the received data
+        if (cityName === "Riga") {
+          cityName = cityName + " 🏠"
+        }
         currentCityElement.textContent = cityName;
-        currentTempElement.textContent = `${latestWeatherData}°C`;
+        currentTempElement.textContent = setFace(latestWeatherData);
         currentConditionsElement.textContent = getWeatherDescription(
           latestWeatherConditions
         );
         minMaxTempElement.textContent = `Max: ${maxTemperature}°C, Min: ${minTemperature}°C`;
       })
-      .catch((error) => {
-        console.error("Error fetching weather data:", error);
-      });
+      // .catch((error) => {
+      //   console.error("Error fetching weather data:", error);
+      // });
   }
 
   function searchWeather() {
