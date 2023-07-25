@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchIcon = document.getElementById('searchIcon');
     const searchBox = document.getElementById('searchBox');
+    const proceedBtn = document.getElementById("proceedBtn");
 
     searchIcon.onclick = function () {
         searchBox.classList.toggle("active");
         searchIcon.classList.toggle("active");
+        proceedBtn.classList.toggle("active");
+
     };
 });
 
